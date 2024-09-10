@@ -39,3 +39,8 @@ end
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 gem "rack-cors"
+
+# Adds Devise
+gem "devise"
+gem "devise-jwt"
+gem "jsonapi-serializer"
