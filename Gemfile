@@ -44,3 +44,5 @@ gem "rack-cors"
 gem "devise"
 gem "devise-jwt"
 gem "jsonapi-serializer"
+
+gem "byebug", "~> 11.1", :groups => [:development, :test]
