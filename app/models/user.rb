@@ -6,6 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :validatable, :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_one_attached :avatar
+  has_many :posts
 
   def avatar_url
     if self.avatar&.attachment
