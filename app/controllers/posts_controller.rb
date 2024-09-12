@@ -3,14 +3,20 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
+    @posts = Post.all.map { |post| PostSerializer.new(post).serializable_hash[:data][:attributes] }
 
-    render json: @posts
+    render json: {
+        status: { code: 200, message: "Ok" },
+        data: { posts: @posts }
+      }, status: :ok
   end
 
   # GET /posts/1
   def show
-    render json: @post
+    render json: {
+        status: { code: 200, message: "Ok" },
+        data: { post: PostSerializer.new(@post).serializable_hash[:data][:attributes] }
+      }, status: :ok
   end
 
   # POST /posts
