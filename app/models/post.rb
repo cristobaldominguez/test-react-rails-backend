@@ -7,4 +7,8 @@ class Post < ApplicationRecord
   def images_url
     self.images.to_a.map { |img| Rails.application.routes.url_helpers.rails_blob_url(img, only_path: true) }
   end
+
+  def user_detail
+    UserSerializer.new(self.user).serializable_hash[:data][:attributes]
+  end
 end
