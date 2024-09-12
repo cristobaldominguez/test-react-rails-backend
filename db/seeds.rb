@@ -8,28 +8,41 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-user = User.create(email: 'cristobald@me.com', password: '123123', first_name: 'Cristóbal', last_name: 'Domínguez')
+user = User.new(email: 'cristobald@me.com', password: '123123', first_name: 'Cristóbal', last_name: 'Domínguez')
+user.avatar.attach(io: File.open("public/emoji.jpg"), filename: 'emoji.jpg')
+user.save
 
-p1 = Post.new(user: user, body: 'Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados.')
-p1.images.attach(io: File.open('public/image_01.jpg'), filename: 'image_01.jpg')
-p1.images.attach(io: File.open('public/image_02.jpg'), filename: 'image_02.jpg')
-p1.images.attach(io: File.open('public/image_03.jpg'), filename: 'image_03.jpg')
-p1.images.attach(io: File.open('public/image_04.jpg'), filename: 'image_04.jpg')
-p1.images.attach(io: File.open('public/image_05.jpg'), filename: 'image_05.jpg')
-p1.save
+groups = [
+  ['image_40.jpg', 'image_41.jpg', 'image_42.jpg', 'image_43.jpg', 'image_44.jpg'],
+  ['image_32.jpg', 'image_33.jpg', 'image_34.jpg', 'image_35.jpg', 'image_36.jpg', 'image_37.jpg', 'image_38.jpg', 'image_39.jpg'],
+  ['image_25.jpg', 'image_26.jpg', 'image_27.jpg', 'image_28.jpg', 'image_29.jpg', 'image_30.jpg', 'image_31.jpg'],
+  ['image_21.jpg', 'image_22.jpg', 'image_23.jpg', 'image_24.jpg'],
+  ['image_15.jpg', 'image_16.jpg', 'image_17.jpg', 'image_18.jpg', 'image_19.jpg', 'image_20.jpg'],
+  ['image_11.jpg', 'image_12.jpg', 'image_13.jpg', 'image_14.jpg'],
+  ['image_09.jpg', 'image_10.jpg'],
+  ['image_08.jpg'],
+  ['image_04.jpg', 'image_05.jpg', 'image_06.jpg', 'image_07.jpg'],
+  ['image_01.jpg', 'image_02.jpg', 'image_03.jpg']
+]
 
-p2 = Post.new(user: user, body: 'Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.')
-p2.images.attach(io: File.open('public/image_06.jpg'), filename: 'image_06.jpg')
-p2.images.attach(io: File.open('public/image_07.jpg'), filename: 'image_07.jpg')
-p2.images.attach(io: File.open('public/image_08.jpg'), filename: 'image_08.jpg')
-p2.images.attach(io: File.open('public/image_09.jpg'), filename: 'image_09.jpg')
-p2.images.attach(io: File.open('public/image_10.jpg'), filename: 'image_10.jpg')
-p2.save
+texts = [
+  'Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados.',
+  'Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.',
+  'Hablamos de un país paraisomático en el que a uno le caen pedazos de frases asadas en la boca.',
+  'Ni siquiera los todopoderosos signos de puntuación dominan a los textos simulados; una vida, se puede decir, poco ortográfica.',
+  'Pero un buen día, una pequeña línea de texto simulado, llamada Lorem Ipsum, decidió aventurarse y salir al vasto mundo de la gramática.',
+  'El gran Oxmox le desanconsejó hacerlo, ya que esas tierras estaban llenas de comas malvadas, signos de interrogación salvajes y puntos y coma traicioneros, pero el texto simulado no se dejó atemorizar.',
+  'Empacó sus siete versales, enfundó su inicial en el cinturón y se puso en camino.',
+  'Cuando ya había escalado las primeras colinas de las montañas cursivas, se dio media vuelta para dirigir su mirada por última vez, hacia su ciudad natal Letralandia, el encabezamiento del pueblo Alfabeto y el subtítulo de su propia calle, la calle del renglón.',
+  'Una pregunta retórica se le pasó por la mente y le puso melancólico, pero enseguida reemprendió su marcha. De nuevo en camino, se encontró con una copia.',
+  'La copia advirtió al pequeño texto simulado de que en el lugar del que ella venía, la habían reescrito miles de veces y que todo lo que había quedado de su original era la palabra "y", así que más le valía al pequeño texto simulado volver a su país, donde estaría mucho más seguro.'
+]
 
-p3 = Post.new(user: user, body: 'Hablamos de un país paraisomático en el que a uno le caen pedazos de frases asadas en la boca.')
-p3.images.attach(io: File.open('public/image_11.jpg'), filename: 'image_11.jpg')
-p3.images.attach(io: File.open('public/image_12.jpg'), filename: 'image_12.jpg')
-p3.images.attach(io: File.open('public/image_13.jpg'), filename: 'image_13.jpg')
-p3.images.attach(io: File.open('public/image_14.jpg'), filename: 'image_14.jpg')
-p3.images.attach(io: File.open('public/image_15.jpg'), filename: 'image_15.jpg')
-p3.save
+groups.each.with_index do |group, index|
+  post = Post.new(user: user, body: texts[index])
+  group.each do |image|
+    post.images.attach(io: File.open("public/#{image}"), filename: image)
+  end
+  post.save
+  puts "Saved Post #{post.id}"
+end
