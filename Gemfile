@@ -45,6 +45,6 @@ gem "devise"
 gem "devise-jwt"
 gem "jsonapi-serializer"
 
-gem "active_storage_validations", "~> 1.1"
+gem "active_storage_validations", "~> 1.2"
 
 gem "byebug", "~> 11.1", :groups => [:development, :test]
